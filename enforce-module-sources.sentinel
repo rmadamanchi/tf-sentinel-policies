@@ -13,6 +13,8 @@ validate_module_sources = func() {
       print("Module permitted", m.source)
     }
   }
+
+  return validated
 }
 
 module_sources_validated = validate_module_sources()
