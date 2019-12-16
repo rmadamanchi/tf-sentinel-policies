@@ -1,0 +1,22 @@
+import "tfconfig"
+import "strings"
+import "types"
+
+validate_module_sources = func() {
+  validated = true
+
+  for tfconfig.modules as _, m {
+    if m.source is not "github.com/foobar" {
+        print("Module source not allowed", m.source)
+        validated = false
+    }else {
+      print("Module permitted", m.source)
+    }
+  }
+}
+
+module_sources_validated = validate_module_sources()
+
+main = rule {
+  module_sources_validated
+}
