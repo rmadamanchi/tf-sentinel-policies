@@ -1,11 +1,14 @@
 import "tfconfig"
 
 restrict_resources = func() {
+  allowed_resource_types = ["null_resource"]
   validated = true
 
-  if length(tfconfig.resources) > 0 {
-    print("Resources not allowed", tfconfig.resources)
-    validated = false
+  for tfconfig.resources as type, resource {
+    if type + "_" + resource not in allowed_resource_types {
+      print("Resources not allowed", type + "_" + resource)
+      validated = false
+    }
   }
 
   return validated
