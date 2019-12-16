@@ -11,11 +11,11 @@ restrict_resources = func() {
     }
   }
 
-  for tfconfig.modules as _, module {
+  for tfconfig.modules as module_name, module {
     if strings.has_prefix(module.source, ".") {
       for module.resources as resource_type {
         if resource_type not in allowed_resource_types {
-          print("Resources not allowed:", resource_type)
+          print("Resources not allowed:", module_name + "." + resource_type)
           validated = false
         }
       }
