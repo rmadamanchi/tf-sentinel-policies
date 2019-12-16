@@ -1,16 +1,15 @@
 import "tfconfig"
 import "strings"
-import "types"
 
 validate_module_sources = func() {
   validated = true
 
-  for tfconfig.modules as _, m {
-    if m.source is not "github.com/foobar" {
-        print("Module source not allowed", m.source)
-        validated = false
+  for tfconfig.modules as _, module {
+    if strings.has_prefix(module.source, "github.com/rmadamanchi") {
+      print("Module permitted", module.source)
     }else {
-      print("Module permitted", m.source)
+      print("Module source not allowed", module.source)
+      validated = false
     }
   }
 
