@@ -3,8 +3,8 @@ import "tfconfig"
 restrict_resources = func() {
   validated = true
 
-  if len(tfconfig.resources) > 0 {
-    print("Resources not allowed. Found", len(tfconfig.resources), "resources" )
+  if length(tfconfig.resources) > 0 {
+    print("Resources not allowed", tfconfig.resources)
     validated = false
   }
 
