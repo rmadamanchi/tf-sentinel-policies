@@ -1,6 +1,7 @@
 import "tfconfig"
 import "strings"
 
+# todo: support nested modules
 restrict_resources = func() {
   allowed_resource_types = ["null_resource"]
   validated = true

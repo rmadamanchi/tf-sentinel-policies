@@ -1,6 +1,7 @@
 import "tfconfig"
 import "strings"
 
+# support nested modules
 validate_module_sources = func() {
   validated = true
 
