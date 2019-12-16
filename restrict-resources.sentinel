@@ -1,4 +1,5 @@
 import "tfconfig"
+import "strings"
 
 restrict_resources = func() {
   allowed_resource_types = ["null_resource"]
