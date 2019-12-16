@@ -1,1 +1,18 @@
-main = rule { true }
+import "tfconfig"
+
+restrict_resources = func() {
+  validated = true
+
+  if len(tfconfig.resources) > 0 {
+    print("Resources not allowed. Found", len(tfconfig.resources), "resources" )
+    validated = false
+  }
+
+  return validated
+}
+
+resources_restricted = restrict_resources()
+
+main = rule {
+  resources_restricted
+}
