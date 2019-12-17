@@ -1,5 +1,4 @@
 import "tfconfig"
-import "tfplan"
 import "strings"
 
 calculate_module_infos = func() {
@@ -48,10 +47,6 @@ restrict_resources = func() {
   validated = true
 
   module_infos = calculate_module_infos()
-  print("---- tfconfig.module_paths ----")
-  print(tfconfig.module_paths)
-  print("---- tfplan.module_paths ----")
-  print(tfplan.module_paths)
   print("---- module_infos ----")
   print(module_infos)
   print("----")
