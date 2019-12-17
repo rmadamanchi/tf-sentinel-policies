@@ -1,37 +1,49 @@
 import "tfconfig"
 import "strings"
 
-calculate_module_sources = func() {
-  module_sources = {}
+calculate_module_infos = func() {
+  module_infos = {}
+  update_module_source = func(path, source) {
+    if module_infos[path] == undefined {
+      module_infos[path] = { }
+    }
+    module_infos[path]["source"] = source
+  }
+
+  update_module_resources = func(path, resources) {
+    if module_infos[path] == undefined {
+      module_infos[path] = { }
+    }
+    module_infos[path]["resources"] = resources
+  }
 
   for tfconfig.module_paths as path_arr {
-    path = strings.join(path_arr, ".")
+    path = "/" + strings.join(path_arr, "/")
     module = tfconfig.module(path_arr)
+    update_module_resources(path, keys(module.resources))
 
     for module.modules as included_module_name, included_module {
-      included_module_path = ""
-      if path == "" {
-        included_module_path = included_module_name
-      }else {
-        included_module_path = path + "." + included_module_name
-      }
-
-      module_sources[included_module_path] = included_module.source
+      update_module_source(path + "/" + included_module_name, included_module.source)
     }
   }
 
-  return module_sources
+  return module_infos
 }
 
 # support nested modules
 validate_module_sources = func() {
   validated = true
 
-  for calculate_module_sources() as path, source {
-     if strings.has_prefix(source, "github.com/rmadamanchi") or strings.has_prefix(source, ".") {
-       print("--- [" + path + "] - " + Module Source [" +  source + "] permitted")
+  module_infos = calculate_module_infos()
+  print("----")
+  print(module_infos)
+  print("----")
+
+  for module_infos as path, info {
+     if strings.has_prefix(info.source, "github.com/rmadamanchi") or strings.has_prefix(info.source, ".") {
+       print("--- [" + path + "] - " + Module Source [" +  info.source + "] permitted")
      }else {
-       print("--- [" + path + "] - " + Module Source [" +  source + "] NOT permitted")
+       print("--- [" + path + "] - " + Module Source [" +  info.source + "] NOT permitted")
        validated = false
      }
   }
