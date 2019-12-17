@@ -3,25 +3,31 @@ import "strings"
 
 calculate_module_infos = func() {
   module_infos = {}
-  update_module_source = func(path, source) {
+  update_module_source = func(path_arr, source) {
+    path = "/" + strings.join(path_arr, "/")
     module_infos[path] = module_infos[path] else {}
     module_infos[path]["source"] = source
     return undefined
   }
 
-  update_module_resources = func(path, resources) {
+  update_module_resources = func(path_arr, resources) {
+    path = "/" + strings.join(path_arr, "/")
     module_infos[path] = module_infos[path] else {}
     module_infos[path]["resources"] = resources
     return undefined
   }
 
+  get_path = func(path_arr) {
+    return
+  }
+
+  update_module_source([], ".")
   for tfconfig.module_paths as path_arr {
-    path = "/" + strings.join(path_arr, "/")
     module = tfconfig.module(path_arr)
-    update_module_resources(path, keys(module.resources))
+    update_module_resources(path_arr, keys(module.resources))
 
     for module.modules as included_module_name, included_module {
-      update_module_source(path + "/" + included_module_name, included_module.source)
+      update_module_source(append(path, included_module_name), included_module.source)
     }
   }
 
