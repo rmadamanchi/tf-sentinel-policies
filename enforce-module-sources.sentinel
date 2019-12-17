@@ -1,6 +1,21 @@
 import "tfconfig"
 import "strings"
 
+calculate_module_sources = func() {
+  module_sources = {}
+
+  for tfconfig.module_paths as path_arr {
+    path = strings.join(path_arr, ".")
+    module = tfconfig.module(path_arr)
+
+    for module.modules as included_module_name, included_module {
+      module_sources[path + "." + included_module_name] = included_module.source
+    }
+  }
+
+  return module_sources
+}
+
 # support nested modules
 validate_module_sources = func() {
   validated = true
@@ -15,6 +30,10 @@ validate_module_sources = func() {
   for tfconfig.modules as key, module {
     print(key)
     print(module)
+  }
+
+  for calculate_module_sources() as path, source {
+    print(path + " : " + source)
   }
 
 
