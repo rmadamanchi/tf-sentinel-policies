@@ -13,7 +13,7 @@ calculate_module_sources = func() {
       if path == "" {
         included_module_path = included_module_name
       }else {
-        included_module_path = path + "," + included_module_name
+        included_module_path = path + "." + included_module_name
       }
 
       module_sources[included_module_path] = included_module.source
@@ -27,34 +27,15 @@ calculate_module_sources = func() {
 validate_module_sources = func() {
   validated = true
 
-  print("---module_paths---")
-  for tfconfig.module_paths as path {
-    print(path)
-    print(tfconfig.module(path))
-  }
-
-  print("---modules---")
-  for tfconfig.modules as key, module {
-    print(key)
-    print(module)
-  }
-
-  print("---module sources---")
+  validated = false
   for calculate_module_sources() as path, source {
-    print(path + " : " + source)
+     if strings.has_prefix(source, "github.com/rmadamanchi") or strings.has_prefix(m.source, ".") {
+       print("--- Module Source [", path, ": ", source, "] permitted")
+     }else {
+       print("--- Module Source [", path, ": ", source, "] NOT permitted")
+       validated = false
+     }
   }
-
-
-  #for tfconfig.module_paths as path {
-  #  m = tfconfig.module(path)
-  #  print(m)
-  #  if strings.has_prefix(m.source, "github.com/rmadamanchi") or strings.has_prefix(m.source, ".") {
-  #    print("Module permitted:", m.source)
-  #  }else {
-  #     print("Module source not allowed:", m.source)
-  #    validated = false
-  #  }
-  #}
 
   return validated
 }
