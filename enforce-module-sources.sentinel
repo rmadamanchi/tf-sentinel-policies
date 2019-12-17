@@ -13,7 +13,7 @@ calculate_module_sources = func() {
       if path == "" {
         included_module_path = included_module_name
       }else {
-        included_module_path = path + included_module_name
+        included_module_path = path + "," + included_module_name
       }
 
       module_sources[included_module_path] = included_module.source
