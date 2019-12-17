@@ -2,9 +2,22 @@ import "tfconfig"
 import "strings"
 
 calculate_module_infos = func() {
-  module_infos = {}
-  update_module_source = func(path_arr, source) {
-    path = "/" + strings.join(path_arr, "/")
+  module_infos = {"/" : {source: "."}}
+
+  update_module_source = func(path_arr, module_name, source) {
+    path = ""
+    if length(path_arr) == 0 {
+      parent_path = "/"
+      path = "/" + module_name
+    }else {
+      parent_path = "/" + strings.join(path_arr, "/")
+      path = "/" + strings.join(path_arr, "/") + "/" + module_name
+    }
+
+    if strings.has_prefix(source, ".") {
+      source = module_infos[parent_path].source + ":" + source
+    }
+    
     module_infos[path] = module_infos[path] else {}
     module_infos[path]["source"] = source
     return undefined
@@ -17,13 +30,12 @@ calculate_module_infos = func() {
     return undefined
   }
 
-  update_module_source([], ".")
   for tfconfig.module_paths as path_arr {
     module = tfconfig.module(path_arr)
     update_module_resources(path_arr, keys(module.resources))
 
     for module.modules as included_module_name, included_module {
-      update_module_source(path_arr + [included_module_name], included_module.source)
+      update_module_source(path_arr, included_module_name, included_module.source)
     }
   }
 
