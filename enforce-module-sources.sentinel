@@ -23,7 +23,7 @@ calculate_module_infos = func() {
     update_module_resources(path_arr, keys(module.resources))
 
     for module.modules as included_module_name, included_module {
-      update_module_source(append(path, included_module_name), included_module.source)
+      update_module_source(append(path_arr, included_module_name), included_module.source)
     }
   }
 
