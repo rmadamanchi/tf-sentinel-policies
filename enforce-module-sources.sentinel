@@ -7,7 +7,6 @@ calculate_module_infos = func() {
     pring("----update_module_source")
     print(path_arr)
     print(source)
-    print(strings)
     path = "/" + strings.join(path_arr, "/")
     module_infos[path] = module_infos[path] else {}
     module_infos[path]["source"] = source
@@ -18,7 +17,6 @@ calculate_module_infos = func() {
     pring("----update_module_resources")
     print(path_arr)
     print(source)
-    print(strings)
     path = "/" + strings.join(path_arr, "/")
     module_infos[path] = module_infos[path] else {}
     module_infos[path]["resources"] = resources
