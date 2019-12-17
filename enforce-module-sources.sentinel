@@ -5,10 +5,18 @@ import "strings"
 validate_module_sources = func() {
   validated = true
 
+  print("---module_paths---")
   for tfconfig.module_paths as path {
     print(path)
     print(tfconfig.module(path))
   }
+
+  print("---modules---")
+  for tfconfig.modules as key, module {
+    print(key)
+    print(module)
+  }
+
 
   #for tfconfig.module_paths as path {
   #  m = tfconfig.module(path)
