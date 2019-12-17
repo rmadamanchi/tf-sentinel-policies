@@ -4,7 +4,7 @@ import "strings"
 calculate_module_infos = func() {
   module_infos = {}
   update_module_source = func(path_arr, source) {
-    pring("----update_module_source")
+    print("----update_module_source")
     print(path_arr)
     print(source)
     path = "/" + strings.join(path_arr, "/")
@@ -14,7 +14,7 @@ calculate_module_infos = func() {
   }
 
   update_module_resources = func(path_arr, resources) {
-    pring("----update_module_resources")
+    print("----update_module_resources")
     print(path_arr)
     print(resources)
     path = "/" + strings.join(path_arr, "/")
