@@ -7,6 +7,7 @@ validate_module_sources = func() {
 
   for tfconfig.module_paths as path {
     print(path)
+    print(tfconfig.module(path))
   }
 
   #for tfconfig.module_paths as path {
