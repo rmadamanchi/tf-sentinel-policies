@@ -46,10 +46,6 @@ validate_module_sources = func() {
   validated = true
 
   module_infos = calculate_module_infos()
-  print("---- module_infos ----")
-  print(module_infos)
-  print("----")
-
   for module_infos as path, info {
     if strings.has_prefix(info.source, "github.com/rmadamanchi") or strings.has_prefix(info.source, ".") {
        print("--- [" + path + "] - Module Source [" +  info.source + "] permitted")

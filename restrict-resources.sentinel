@@ -47,6 +47,8 @@ restrict_resources = func() {
   validated = true
 
   module_infos = calculate_module_infos()
+  print("---- module_paths ----")
+  print(tfconfig.module_paths)
   print("---- module_infos ----")
   print(module_infos)
   print("----")
