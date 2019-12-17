@@ -11,9 +11,9 @@ calculate_module_sources = func() {
     for module.modules as included_module_name, included_module {
       included_module_path = ""
       if path == "" {
-        included_module_path = included_module
+        included_module_path = included_module_name
       }else {
-        included_module_path = path + included_module
+        included_module_path = path + included_module_name
       }
 
       module_sources[included_module_path] = included_module.source
