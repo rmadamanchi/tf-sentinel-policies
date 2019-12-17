@@ -6,11 +6,13 @@ calculate_module_infos = func() {
   update_module_source = func(path, source) {
     module_infos[path] = module_infos[path] else {}
     module_infos[path]["source"] = source
+    return undefined
   }
 
   update_module_resources = func(path, resources) {
     module_infos[path] = module_infos[path] else {}
     module_infos[path]["resources"] = resources
+    return undefined
   }
 
   for tfconfig.module_paths as path_arr {
