@@ -4,16 +4,12 @@ import "strings"
 calculate_module_infos = func() {
   module_infos = {}
   update_module_source = func(path, source) {
-    if module_infos[path] == undefined {
-      module_infos[path] = { }
-    }
+    module_infos[path] = module_infos[path] else {}
     module_infos[path]["source"] = source
   }
 
   update_module_resources = func(path, resources) {
-    if module_infos[path] == undefined {
-      module_infos[path] = { }
-    }
+    module_infos[path] = module_infos[path] else {}
     module_infos[path]["resources"] = resources
   }
 
