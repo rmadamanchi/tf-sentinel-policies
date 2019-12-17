@@ -29,7 +29,7 @@ validate_module_sources = func() {
 
   validated = false
   for calculate_module_sources() as path, source {
-     if strings.has_prefix(source, "github.com/rmadamanchi") or strings.has_prefix(m.source, ".") {
+     if strings.has_prefix(source, "github.com/rmadamanchi") or strings.has_prefix(source, ".") {
        print("--- Module Source [", path, ": ", source, "] permitted")
      }else {
        print("--- Module Source [", path, ": ", source, "] NOT permitted")
