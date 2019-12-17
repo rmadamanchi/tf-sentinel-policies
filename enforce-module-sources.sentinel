@@ -2,7 +2,7 @@ import "tfconfig"
 import "strings"
 
 calculate_module_infos = func() {
-  module_infos = {"/" : {source: "."}}
+  module_infos = {"/" : {"source": "."}}
 
   update_module_source = func(path_arr, module_name, source) {
     path = ""
@@ -17,7 +17,7 @@ calculate_module_infos = func() {
     if strings.has_prefix(source, ".") {
       source = module_infos[parent_path].source + ":" + source
     }
-    
+
     module_infos[path] = module_infos[path] else {}
     module_infos[path]["source"] = source
     return undefined

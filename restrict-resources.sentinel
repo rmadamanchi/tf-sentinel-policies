@@ -2,7 +2,7 @@ import "tfconfig"
 import "strings"
 
 calculate_module_infos = func() {
-  module_infos = {"/" : {source: "."}}
+  module_infos = {"/" : {"source": "."}}
 
   update_module_source = func(path_arr, module_name, source) {
     path = ""
