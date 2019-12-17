@@ -9,7 +9,14 @@ calculate_module_sources = func() {
     module = tfconfig.module(path_arr)
 
     for module.modules as included_module_name, included_module {
-      module_sources[path + "." + included_module_name] = included_module.source
+      included_module_path = ""
+      if path == "" {
+        included_module_path = included_module
+      }else {
+        included_module_path = path + included_module
+      }
+
+      module_sources[included_module_path] = included_module.source
     }
   }
 
@@ -32,6 +39,7 @@ validate_module_sources = func() {
     print(module)
   }
 
+  print("---module sources---")
   for calculate_module_sources() as path, source {
     print(path + " : " + source)
   }
