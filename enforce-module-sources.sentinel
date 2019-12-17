@@ -6,7 +6,7 @@ calculate_module_infos = func() {
   update_module_source = func(path_arr, source) {
     path = "/" + strings.join(path_arr, "/")
     module_infos[path] = module_infos[path] else {}
-    module_infos[path]["source"] = []
+    module_infos[path]["source"] = source
     return undefined
   }
 
