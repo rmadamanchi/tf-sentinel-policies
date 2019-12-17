@@ -43,7 +43,7 @@ restrict_resources = func() {
     if strings.has_prefix(info.source, ".") {
       for info.resources as resource {
         if resource not in allowed_resource_types {
-          print("--- Resources [" + resource + "] at [" + path "] NOT allowed")
+          print("--- Resources [" + resource + "] at [" + path + "] NOT allowed")
           validated = false
         }
       }
