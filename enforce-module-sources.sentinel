@@ -30,7 +30,6 @@ calculate_module_infos = func() {
   return module_infos
 }
 
-# support nested modules
 validate_module_sources = func() {
   validated = true
 
@@ -41,9 +40,9 @@ validate_module_sources = func() {
 
   for module_infos as path, info {
      if strings.has_prefix(info.source, "github.com/rmadamanchi") or strings.has_prefix(info.source, ".") {
-       print("--- [" + path + "] - " + Module Source [" +  info.source + "] permitted")
+       print("--- [" + path + "] - Module Source [" +  info.source + "] permitted")
      }else {
-       print("--- [" + path + "] - " + Module Source [" +  info.source + "] NOT permitted")
+       print("--- [" + path + "] - Module Source [" +  info.source + "] NOT permitted")
        validated = false
      }
   }
