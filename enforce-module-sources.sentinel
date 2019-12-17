@@ -7,6 +7,7 @@ validate_module_sources = func() {
 
   for tfconfig.module_paths as path {
     m = tfconfig.module(path)
+    print(m)
     if strings.has_prefix(m.source, "github.com/rmadamanchi") or strings.has_prefix(m.source, ".") {
       print("Module permitted:", m.source)
     }else {
