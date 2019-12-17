@@ -4,26 +4,20 @@ import "strings"
 calculate_module_infos = func() {
   module_infos = {}
   update_module_source = func(path_arr, source) {
-    print("----update_module_source")
-    print(path_arr)
-    print(source)
     path = "/" + strings.join(path_arr, "/")
     module_infos[path] = module_infos[path] else {}
-    module_infos[path]["source"] = source
+    module_infos[path]["source"] = []
     return undefined
   }
 
   update_module_resources = func(path_arr, resources) {
-    print("----update_module_resources")
-    print(path_arr)
-    print(resources)
     path = "/" + strings.join(path_arr, "/")
     module_infos[path] = module_infos[path] else {}
     module_infos[path]["resources"] = resources
     return undefined
   }
 
-  #update_module_source([], ".")
+  update_module_source([], ".")
   for tfconfig.module_paths as path_arr {
     module = tfconfig.module(path_arr)
     update_module_resources(path_arr, keys(module.resources))
@@ -40,18 +34,18 @@ validate_module_sources = func() {
   validated = true
 
   module_infos = calculate_module_infos()
-  print("----")
+  print("---- module_infos ----")
   print(module_infos)
   print("----")
 
-  #for module_infos as path, info {
-  #  if strings.has_prefix(info.source, "github.com/rmadamanchi") or strings.has_prefix(info.source, ".") {
-  #     print("--- [" + path + "] - Module Source [" +  info.source + "] permitted")
-  #   }else {
-  #     print("--- [" + path + "] - Module Source [" +  info.source + "] NOT permitted")
-  #     validated = false
-  #   }
-  #}
+  for module_infos as path, info {
+    if strings.has_prefix(info.source, "github.com/rmadamanchi") or strings.has_prefix(info.source, ".") {
+       print("--- [" + path + "] - Module Source [" +  info.source + "] permitted")
+     }else {
+       print("--- [" + path + "] - Module Source [" +  info.source + "] NOT permitted")
+       validated = false
+     }
+  }
 
   return validated
 }

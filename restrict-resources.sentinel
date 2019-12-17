@@ -1,23 +1,49 @@
 import "tfconfig"
 import "strings"
 
-# todo: support nested modules
+calculate_module_infos = func() {
+  module_infos = {}
+  update_module_source = func(path_arr, source) {
+    path = "/" + strings.join(path_arr, "/")
+    module_infos[path] = module_infos[path] else {}
+    module_infos[path]["source"] = []
+    return undefined
+  }
+
+  update_module_resources = func(path_arr, resources) {
+    path = "/" + strings.join(path_arr, "/")
+    module_infos[path] = module_infos[path] else {}
+    module_infos[path]["resources"] = resources
+    return undefined
+  }
+
+  update_module_source([], ".")
+  for tfconfig.module_paths as path_arr {
+    module = tfconfig.module(path_arr)
+    update_module_resources(path_arr, keys(module.resources))
+
+    for module.modules as included_module_name, included_module {
+      update_module_source(path_arr + [included_module_name], included_module.source)
+    }
+  }
+
+  return module_infos
+}
+
 restrict_resources = func() {
   allowed_resource_types = ["null_resource"]
   validated = true
 
-  for tfconfig.resources as resource_type {
-    if resource_type not in allowed_resource_types {
-      print("Resources not allowed:", resource_type)
-      validated = false
-    }
-  }
-
-  for tfconfig.modules as module_name, module {
-    if strings.has_prefix(module.source, ".") {
-      for tfconfig.module([module_name]).resources as resource_type {
-        if resource_type not in allowed_resource_types {
-          print("Resources not allowed:", module_name + "." + resource_type)
+  module_infos = calculate_module_infos()
+  print("---- module_infos ----")
+  print(module_infos)
+  print("----")
+  
+  for module_infos as path, info {
+    if strings.has_prefix(info.source, ".") {
+      for info.resources as resource {
+        if resource not in allowed_resource_types {
+          print("--- Resources [" + resource + "] at [" + path "] NOT allowed")
           validated = false
         }
       }
