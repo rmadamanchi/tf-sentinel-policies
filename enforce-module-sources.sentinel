@@ -17,7 +17,7 @@ calculate_module_infos = func() {
     return undefined
   }
 
-  update_module_source([], ".")
+  #update_module_source([], ".")
   for tfconfig.module_paths as path_arr {
     module = tfconfig.module(path_arr)
     update_module_resources(path_arr, keys(module.resources))
