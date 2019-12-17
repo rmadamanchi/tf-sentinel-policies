@@ -36,14 +36,14 @@ validate_module_sources = func() {
   print(module_infos)
   print("----")
 
-  for module_infos as path, info {
-     if strings.has_prefix(info.source, "github.com/rmadamanchi") or strings.has_prefix(info.source, ".") {
-       print("--- [" + path + "] - Module Source [" +  info.source + "] permitted")
-     }else {
-       print("--- [" + path + "] - Module Source [" +  info.source + "] NOT permitted")
-       validated = false
-     }
-  }
+  #for module_infos as path, info {
+  #  if strings.has_prefix(info.source, "github.com/rmadamanchi") or strings.has_prefix(info.source, ".") {
+  #     print("--- [" + path + "] - Module Source [" +  info.source + "] permitted")
+  #   }else {
+  #     print("--- [" + path + "] - Module Source [" +  info.source + "] NOT permitted")
+  #     validated = false
+  #   }
+  #}
 
   return validated
 }
