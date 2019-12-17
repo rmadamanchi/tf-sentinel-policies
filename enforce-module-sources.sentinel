@@ -7,9 +7,9 @@ calculate_module_infos = func() {
     print("----update_module_source")
     print(path_arr)
     print(source)
-    path = "/" + strings.join(path_arr, "/")
-    module_infos[path] = module_infos[path] else {}
-    module_infos[path]["source"] = source
+    #path = "/" + strings.join(path_arr, "/")
+    #module_infos[path] = module_infos[path] else {}
+    #module_infos[path]["source"] = source
     return undefined
   }
 
@@ -17,9 +17,9 @@ calculate_module_infos = func() {
     print("----update_module_resources")
     print(path_arr)
     print(resources)
-    path = "/" + strings.join(path_arr, "/")
-    module_infos[path] = module_infos[path] else {}
-    module_infos[path]["resources"] = resources
+    #path = "/" + strings.join(path_arr, "/")
+    #module_infos[path] = module_infos[path] else {}
+    #module_infos[path]["resources"] = resources
     return undefined
   }
 
